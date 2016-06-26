@@ -19,7 +19,6 @@ impl HandleKey for HeatmapHandler {
         keyboard.set_all_colors(Color::new(0, 0, 0))
     }
 
-    #[allow(unused_variables)]
     fn accept(&self, evt: &KeyEvent) -> bool {
         match evt {
             // we can't set colors of media keys
