@@ -7,19 +7,17 @@ impl FlashHandler {
     pub fn new() -> FlashHandler {
         FlashHandler { }
     }
-}
 
-impl HandleKey for FlashHandler {
     fn init(&mut self, keyboard: &mut Keyboard) -> UsbResult<()> {
         keyboard.set_all_colors(Color::new(0, 0, 255))
     }
 
     #[allow(unused_variables)]
-    fn accept(&self, evt: &KeyEvent) -> bool {
+    fn accept_key(&self, evt: &KeyEvent) -> bool {
         true
     }
 
-    fn handle(&mut self, evt: &KeyEvent, keyboard: &mut Keyboard) -> UsbResult<()> {
+    fn handle_key(&mut self, evt: &KeyEvent, keyboard: &mut Keyboard) -> UsbResult<()> {
         match evt {
             &KeyEvent::KeyPressed(_) => {
                 keyboard.set_all_colors(Color::new(255, 0, 0))
@@ -33,7 +31,11 @@ impl HandleKey for FlashHandler {
 
 impl From<FlashHandler> for Handler {
     fn from(handler: FlashHandler) -> Handler {
-        Handler::HandleKey(Box::new(handler))
+        HandlerBuilder::new(handler)
+            .init_fn(|handler, keyboard| handler.init(keyboard))
+            .accept_key_fn(|handler, evt| handler.accept_key(evt))
+            .handle_key_fn(|handler, evt, keyboard| handler.handle_key(evt, keyboard))
+            .build()
     }
 }
 

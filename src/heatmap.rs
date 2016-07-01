@@ -12,14 +12,12 @@ impl HeatmapHandler {
             heatmap: Heatmap::new(),
         }
     }
-}
 
-impl HandleKey for HeatmapHandler {
     fn init(&mut self, keyboard: &mut Keyboard) -> UsbResult<()> {
         keyboard.set_all_colors(Color::new(0, 0, 0))
     }
 
-    fn accept(&self, evt: &KeyEvent) -> bool {
+    fn accept_key(&self, evt: &KeyEvent) -> bool {
         match evt {
             // we can't set colors of media keys
             &KeyEvent::KeyPressed(Key::Media(_)) => false,
@@ -28,7 +26,7 @@ impl HandleKey for HeatmapHandler {
         }
     }
 
-    fn handle(&mut self, evt: &KeyEvent, keyboard: &mut Keyboard) -> UsbResult<()> {
+    fn handle_key(&mut self, evt: &KeyEvent, keyboard: &mut Keyboard) -> UsbResult<()> {
         let key = match evt {
             &KeyEvent::KeyPressed(ref key) => key,
             _ => unreachable!()
@@ -40,7 +38,11 @@ impl HandleKey for HeatmapHandler {
 
 impl From<HeatmapHandler> for Handler {
     fn from(handler: HeatmapHandler) -> Handler {
-        Handler::HandleKey(Box::new(handler))
+        HandlerBuilder::new(handler)
+            .init_fn(|handler, keyboard| handler.init(keyboard))
+            .accept_key_fn(|handler, evt| handler.accept_key(evt))
+            .handle_key_fn(|handler, evt, keyboard| handler.handle_key(evt, keyboard))
+            .build()
     }
 }
 

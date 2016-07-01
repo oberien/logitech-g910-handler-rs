@@ -21,10 +21,7 @@ impl UinputHandler {
             device: device,
         }
     }
-}
 
-impl HandleKey for UinputHandler {
-    //fn init(&mut self, keyboard: &mut Keyboard) -> UsbResult<()> 
     fn accept(&self, evt: &KeyEvent) -> bool {
         let k = match evt {
             &KeyEvent::KeyPressed(ref k) => k,
@@ -70,7 +67,10 @@ impl HandleKey for UinputHandler {
 
 impl From<UinputHandler> for Handler {
     fn from(handler: UinputHandler) -> Handler {
-        Handler::HandleKey(Box::new(handler))
+        HandlerBuilder::new(handler)
+            .accept_key_fn(|handler, evt| handler.accept(evt))
+            .handle_key_fn(|handler, evt, keyboard| handler.handle(evt, keyboard))
+            .build()
     }
 }
 
