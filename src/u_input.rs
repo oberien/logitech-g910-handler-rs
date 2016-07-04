@@ -3,7 +3,7 @@ use uinput;
 use uinput::Device;
 use uinput::device::Builder;
 use uinput::event::{Keyboard as UinputKey};
-use uinput::event::keyboard::{Key as UinputStandardKey, Numeric, Misc, KeyPad};
+use uinput::event::keyboard::{Key as UinputStandardKey, Misc, KeyPad};
 use libusb::Result as UsbResult;
 
 pub struct UinputHandler {
@@ -128,7 +128,7 @@ impl ToUinputKey for StandardKey {
             &StandardKey::Uuml => Some(UinputKey::Key(UinputStandardKey::LeftBrace)),
             &StandardKey::Plus => Some(UinputKey::Key(UinputStandardKey::RightBrace)),
             &StandardKey::Pipe => Some(UinputKey::Key(UinputStandardKey::BackSlash)),
-            &StandardKey::Sharp => Some(UinputKey::Numeric(Numeric::Pound)),
+            &StandardKey::Sharp => Some(UinputKey::Key(UinputStandardKey::BackSlash)),
             &StandardKey::Ouml => Some(UinputKey::Key(UinputStandardKey::SemiColon)),
             &StandardKey::Auml => Some(UinputKey::Key(UinputStandardKey::Apostrophe)),
             &StandardKey::Circumflex => Some(UinputKey::Key(UinputStandardKey::Grave)),
@@ -178,7 +178,7 @@ impl ToUinputKey for StandardKey {
             &StandardKey::Num9 => Some(UinputKey::KeyPad(KeyPad::_9)),
             &StandardKey::Num0 => Some(UinputKey::KeyPad(KeyPad::_0)),
             &StandardKey::NumComma => Some(UinputKey::KeyPad(KeyPad::Dot)),
-            &StandardKey::SmallerThan => Some(UinputKey::Key(UinputStandardKey::BackSlash)),
+            &StandardKey::SmallerThan => Some(UinputKey::Misc(Misc::ND102)),
             &StandardKey::Menu => Some(UinputKey::Misc(Misc::Menu)),
             &StandardKey::International1 => None,
             &StandardKey::International2 => None,
