@@ -38,7 +38,7 @@ impl HeatmapHandler {
         keyboard.set_key_colors(self.heatmap.colors())
     }
 
-    fn handle_time(&mut self, delta: Duration, keyboard: &mut Keyboard) -> UsbResult<()> {
+    fn handle_time(&mut self, keyboard: &mut Keyboard) -> UsbResult<()> {
         let mut logos = Logo::values();
         let mapped;
         if self.logos {
@@ -57,7 +57,7 @@ impl From<HeatmapHandler> for Handler {
             .init_fn(|handler, keyboard| handler.init(keyboard))
             .accept_key_fn(|handler, evt| handler.accept_key(evt))
             .handle_key_fn(|handler, evt, keyboard| handler.handle_key(evt, keyboard))
-            .handle_time_fn(|handler, delta, keyboard| handler.handle_time(delta, keyboard), Duration::from_millis(500))
+            .handle_time_fn(|handler, _, keyboard| handler.handle_time(keyboard), Duration::from_millis(500))
             .build()
     }
 }
