@@ -148,7 +148,7 @@ impl ToUinputKey for StandardKey {
             &StandardKey::F10 => Some(UinputKey::Key(UinputStandardKey::F10)),
             &StandardKey::F11 => Some(UinputKey::Key(UinputStandardKey::F11)),
             &StandardKey::F12 => Some(UinputKey::Key(UinputStandardKey::F12)),
-            &StandardKey::Print => Some(UinputKey::Misc(Misc::Print)),
+            &StandardKey::Print => Some(UinputKey::Key(UinputStandardKey::SysRq)),
             &StandardKey::ScrollLock => Some(UinputKey::Key(UinputStandardKey::ScrollLock)),
             &StandardKey::Pause => Some(UinputKey::Misc(Misc::Pause)),
             &StandardKey::Insert => Some(UinputKey::Key(UinputStandardKey::Insert)),
