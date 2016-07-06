@@ -201,8 +201,8 @@ impl ToUinputKey for MediaKey {
     fn to_uinput_key(&self) -> Option<UinputKey> {
         match self {
             &MediaKey::None => None,
-            &MediaKey::Forward => Some(UinputKey::Misc(Misc::Forward)),
-            &MediaKey::Backward => Some(UinputKey::Misc(Misc::Back)),
+            &MediaKey::Forward => Some(UinputKey::Misc(Misc::NextSong)),
+            &MediaKey::Backward => Some(UinputKey::Misc(Misc::PreviousSong)),
             &MediaKey::Stop => Some(UinputKey::Misc(Misc::Stop)),
             &MediaKey::PlayPause => Some(UinputKey::Misc(Misc::PlayPause)),
             &MediaKey::VolumeUp => Some(UinputKey::Misc(Misc::VolumeUp)),
