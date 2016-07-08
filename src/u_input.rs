@@ -203,7 +203,7 @@ impl ToUinputKey for MediaKey {
             &MediaKey::None => None,
             &MediaKey::Forward => Some(UinputKey::Misc(Misc::NextSong)),
             &MediaKey::Backward => Some(UinputKey::Misc(Misc::PreviousSong)),
-            &MediaKey::Stop => Some(UinputKey::Misc(Misc::Stop)),
+            &MediaKey::Stop => Some(UinputKey::Misc(Misc::StopCD)),
             &MediaKey::PlayPause => Some(UinputKey::Misc(Misc::PlayPause)),
             &MediaKey::VolumeUp => Some(UinputKey::Misc(Misc::VolumeUp)),
             &MediaKey::VolumeDown => Some(UinputKey::Misc(Misc::VolumeDown)),
